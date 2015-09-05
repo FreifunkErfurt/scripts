@@ -1,0 +1,15 @@
+#######################################################
+# CONFIGURATION
+#######################################################
+
+# Nameservers (which should get update)
+DNS_SERVERS="10.99.1.2 10.99.1.3"
+# Known DHCP-Ranges
+DHCP_RANGES="10.99.12.0/22 10.99.16.0/22"
+# Domain
+DOMAIN="dyn.ffef"
+# Octets of IPv4 address to use for reverse-zone (min: 1, max: 4)
+# (e.g. IP 192.168.2.1, Octets 3, resulting zone is 2.168.192.in-addr.arpa)
+DOMAIN_REVERSE_OCTETS=3
+# TTL for nameserver entry in seconds
+TTL=600

@@ -1,0 +1,13 @@
+#######################################################
+# CONFIGURATION
+#######################################################
+
+# Nameserver type (used by mkdns)
+# Options: bind, unbound, dnsmasq, bind-forward
+DNSSERVER_TYPE="bind-forward"
+
+# Nameserver configuration file
+DNSSERVER_CONF=/etc/bind/named.conf.icvpn
+
+# Name of your community (as specified in icvpn-meta repository)
+COMMUNITY=erfurt
