@@ -8,8 +8,8 @@
 # Copyright Freifunk Erfurt, 2015
 # Marcel Pennewiss <opensource@pennewiss.de>
 #
-# Version: 1.0
-# Last-Modified: 2015-08-29
+# Version: 1.1
+# Last-Modified: 2015-09-08
 #
 # REQUIREMENTS:
 #   * git
@@ -24,9 +24,11 @@
 # CONFIGURATION
 #######################################################
 
+SCRIPT_DIRECTORY=$(dirname $(readlink -f ${0}))
+
 . $(dirname ${0})/icvpn-dns-update.config 2>/dev/null
 if [ $? -ne 0 ]; then
-  echo "Configuration file $(dirname $(readlink -f ${0}))/icvpn-dns-update.config file not found." >&2
+  echo "Configuration file ${SCRIPT_DIRECTORY}/icvpn-dns-update.config file not found." >&2
   exit 2
 fi
 
@@ -159,7 +161,7 @@ update() {
   if [ ! -e ${DNSSERVER_SCRIPT} ]; then
     echo "icvpn-scripts (or mkdns) not found in ${DNSSERVER_SCRIPT}" >&2
     echo "Cloning icvpn-scripts repository initially..." >&2
-    git clone ${GIT_ICVPN_SCRIPTS} "$(dirname $(readlink -f ${0}))/icvpn-scripts"
+    git clone ${GIT_ICVPN_SCRIPTS} "${SCRIPT_DIRECTORY}/icvpn-scripts"
     if [ $? -ne 0 ]; then
       echo "git clone of icvpn-scripts failed." >&2
       echo "Please run \"git clone ${GIT_ICVPN_SCRIPTS}\" manually in script directory" >&2
@@ -182,13 +184,13 @@ update() {
   elif [ ${RETURN_SCRIPT_REPOS} -eq 1 ]; then
     # Get last notify commit id
     local LAST_COMMIT_NOTIFY=""
-    if [ -e ${GIT_REPOS_BASEDIR}/notify-scripts-commit-id ]; then
-      LAST_COMMIT_NOTIFY=$(cat ${GIT_REPOS_BASEDIR}/notify-scripts-commit-id)
+    if [ -e "${SCRIPT_DIRECTORY}/icvpn-dns-update.scripts-commit-id" ]; then
+      LAST_COMMIT_NOTIFY=$(cat "${SCRIPT_DIRECTORY}/icvpn-dns-update.scripts-commit-id")
     fi
     # notify only on really new commit (prevent multiple notifies)
     if [ "${LAST_COMMIT_NOTIFY}" != "$(getCurrentCommitId ${GIT_ICVPN_SCRIPTS})" ]; then
       echo "NEW UPDATES available on icvpn-script repository!"
-      echo $(getCurrentCommitId ${GIT_ICVPN_SCRIPTS}) > ${GIT_REPOS_BASEDIR}/notify-scripts-commit-id
+      echo $(getCurrentCommitId ${GIT_ICVPN_SCRIPTS}) > "${SCRIPT_DIRECTORY}/icvpn-dns-update.scripts-commit-id"
     fi
   fi
 
