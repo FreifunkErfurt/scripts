@@ -7,3 +7,6 @@ Skripte zur Aktualisierung von Quagga, DNS und anderer für ICVPN notwendiger So
 
 ### dns
 Skripte zur Verwaltung und Aktualisierung der netzinternen DNS-Server
+
+### ffapi
+Skript zum Auslesen der Knotenzahl und zur Aktualisierung der Freifunk-API JSON-Datei
