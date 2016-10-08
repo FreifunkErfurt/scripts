@@ -1,3 +1,4 @@
-# Simple gluon node count
+# ffapi-update
 
-This script will go through a nodes.json file and collect the count of online nodes and the number of clients reported for those nodes.
+Skript zum dynamischen aktualisieren der Knotenanzahl anhand der Map-Daten fuer die Freifunk API-Datei.
+(benoetigt ff-erfurt.json von https://github.com/FreifunkErfurt/ffapi)
