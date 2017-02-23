@@ -6,11 +6,11 @@
 # gluon git repository. A new version is only build if git repository
 # has new commits.
 #
-# Copyright Freifunk Erfurt, 2016
+# Copyright Freifunk Erfurt, 2016-2017
 # Marcel Pennewiss <opensource@pennewiss.de>
 #
-# Version: 1.0
-# Last-Modified: 2016-08-20
+# Version: 1.1
+# Last-Modified: 2017-02-23
 #
 # REQUIREMENTS:
 #   * git
@@ -138,6 +138,9 @@ update_git() {
     
   logStdout "GIT: Reset local repository to latest upstream commit."
 
+  git pull --quiet
+  [ $? -ne 0 ] && logStderr "GIT: Pull of repository failed." && exit 2
+
   git reset --hard origin/master --quiet
   [ $? -ne 0 ] && logStderr "GIT: Reset of repository to origin/master failed." && exit 2
  
@@ -152,7 +155,7 @@ get_gluontargets() {
   while read LINE; do
     case "$LINE" in
       *GluonTarget*\)\))
-        MAKE_GLUON_TARGETS="$MAKE_GLUON_TARGETS $(echo "$LINE" | sed -e 's/.* GluonTarget,\(.*\),\(.*\)))$/\1\-\2/')"
+        MAKE_GLUON_TARGETS="$MAKE_GLUON_TARGETS $(echo "$LINE" | sed -e 's/.* GluonTarget,\([^,]*\),\([^,]*\).*))$/\1\-\2/')"
         ;;
     esac
   done < targets/targets.mk
