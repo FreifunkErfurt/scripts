@@ -212,15 +212,15 @@ deploy_images() {
   rsync --archive --delete "$BUILD_DIRECTORY/output/images/" "$MIRROR_DIRECTORY/"
   [ $? -ne 0 ] && logStderr "BUILD: Deploying images failed." && exit 1
 
-  # Create module directory
-  GLUON_RELEASE=$(ls "${BUILD_DIRECTORY}/output/modules/" 2>/dev/null)
-  [ -z "$GLUON_RELEASE" ] && logStderr "BUILD: Module directory not found" && exit 1
+  # Create packages directory
+  GLUON_RELEASE=$(ls "${BUILD_DIRECTORY}/output/packages/" 2>/dev/null)
+  [ -z "$GLUON_RELEASE" ] && logStderr "BUILD: Packages directory not found" && exit 1
 
-  # Create module 
-  mkdir "$MIRROR_DIRECTORY/modules/" 2>/dev/null
+  # Create packages 
+  mkdir "$MIRROR_DIRECTORY/packages/" 2>/dev/null
 
-  # Sync modules to mirror directory
-  rsync --archive --delete "$BUILD_DIRECTORY/output/modules/$GLUON_RELEASE/" "$MIRROR_DIRECTORY/modules/"
+  # Sync packages to mirror directory
+  rsync --archive --delete "$BUILD_DIRECTORY/output/packages/$GLUON_RELEASE/" "$MIRROR_DIRECTORY/packages/"
   [ $? -ne 0 ] && logStderr "BUILD: Deploying images failed." && exit 1
 
 }
