@@ -1,3 +1,4 @@
 BASE_URL = 'http://map.erfurt.freifunk.net'
 API_FILE_TEMPLATE = "/home/ffapi/ffapi/ff-erfurt.json"
 API_FILE = "/var/www/api.erfurt.freifunk.net/public_html/freifunk-api.json"
+SITE_CODE = 'ffef'

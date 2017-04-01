@@ -22,6 +22,8 @@ import config
 
 response = urllib2.urlopen(config.BASE_URL + '/nodes.json')
 node_list = json.loads(response.read().decode('UTF-8'))
+response = urllib2.urlopen(config.MESHVIEWER_NODES_URL)
+meshviewer_node_list = json.loads(response.read().decode('UTF-8'))
 
 # End of configuration
 
@@ -32,7 +34,11 @@ def gluonNodes():
     nodes = 0
 
     for node in node_list['nodes']:
-        if node['flags']['online']:
+        site_code = ''
+        node_id = node['id'].replace(':', '')
+        if config.SITE_CODE != site_code and node_id in meshviewer_node_list['nodes']:
+            site_code = meshviewer_node_list['nodes'][node_id]['nodeinfo']['system']['site_code']
+        if node['flags']['online'] and config.SITE_CODE == site_code:
             nodes += 1
             clients += node['clientcount']
 
