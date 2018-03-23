@@ -6,11 +6,11 @@
 # gluon git repository. A new version is only build if git repository
 # has new commits.
 #
-# Copyright Freifunk Erfurt, 2016-2017
+# Copyright Freifunk Erfurt, 2016-2018
 # Marcel Pennewiss <opensource@pennewiss.de>
 #
-# Version: 1.1
-# Last-Modified: 2017-02-23
+# Version: 1.2
+# Last-Modified: 2018-03-23
 #
 # REQUIREMENTS:
 #   * git
@@ -155,7 +155,7 @@ get_gluontargets() {
   while read LINE; do
     case "$LINE" in
       *GluonTarget*\)\))
-        MAKE_GLUON_TARGETS="$MAKE_GLUON_TARGETS $(echo "$LINE" | sed -e 's/.* GluonTarget,\([^,]*\),\([^,]*\).*))$/\1\-\2/')"
+        MAKE_GLUON_TARGETS="$MAKE_GLUON_TARGETS $(echo "$LINE" | sed -e 's/.* GluonTarget,\([^,]*\)\(,\([^,]*\)\)\?.*))$/\1\2/' | sed -e 's/,/-/')"
         ;;
     esac
   done < targets/targets.mk
